@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文复现-Clock around the clock：Time-based device fingerprinting | l3t1tb3</title><meta name="keywords" content="papers"><meta name="author" content="l3t1tb3"><meta name="copyright" content="l3t1tb3"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="介绍 论文介绍： 《Clock around the clock：Time-based device fingerprinting》是一篇发表在2018年CCS(CCF-A)上的论文。前几天写材料看了这篇论文，觉得思想还挺大道至简的。用师兄的话说就是，可能如果你想到这idea，做都没做就觉得不work然后放弃了的那种… 作者是Iskander Sanchez-Rola，来自西班牙德乌斯托大学(U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文复现-Clock around the clock：Time-based device fingerprinting">
+<meta property="og:url" content="http://example.com/2020/10/20/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/index.html">
+<meta property="og:site_name" content="l3t1tb3">
+<meta property="og:description" content="介绍 论文介绍： 《Clock around the clock：Time-based device fingerprinting》是一篇发表在2018年CCS(CCF-A)上的论文。前几天写材料看了这篇论文，觉得思想还挺大道至简的。用师兄的话说就是，可能如果你想到这idea，做都没做就觉得不work然后放弃了的那种… 作者是Iskander Sanchez-Rola，来自西班牙德乌斯托大学(U">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/cover.jpg">
+<meta property="article:published_time" content="2020-10-20T08:06:02.000Z">
+<meta property="article:modified_time" content="2020-11-08T02:06:16.289Z">
+<meta property="article:author" content="l3t1tb3">
+<meta property="article:tag" content="papers">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/cover.jpg"><link rel="shortcut icon" href="/img/favicon-2.png"><link rel="canonical" href="http://example.com/2020/10/20/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-11-08 10:06:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar-3.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text"> 核心思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text"> 主要工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E7%BA%B9%E7%94%9F%E6%88%90%E9%98%B6%E6%AE%B5"><span class="toc-number">3.1.</span> <span class="toc-text"> 指纹生成阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E7%BA%B9%E6%AF%94%E8%BE%83%E9%98%B6%E6%AE%B5"><span class="toc-number">3.2.</span> <span class="toc-text"> 指纹比较阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text"> 实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text"> 实验设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.2.</span> <span class="toc-text"> 实验结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E6%94%B9%E8%BF%9B"><span class="toc-number">5.</span> <span class="toc-text"> 尝试改进</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E7%BA%B9%E6%AF%94%E8%BE%83%E7%9A%84%E5%87%86%E7%A1%AE%E5%BA%A6"><span class="toc-number">5.1.</span> <span class="toc-text"> 指纹比较的准确度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BC%97%E6%95%B0%E6%9D%A5%E5%88%A4%E6%96%AD%E4%B8%80%E8%A1%8C%E4%B8%AD%E7%9B%B8%E5%90%8C%E7%9A%84item%E6%95%B0%E9%87%8F"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 用众数来判断一行中相同的item数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AAfp%E5%AF%B9%E5%BA%94%E4%BD%8D%E7%BD%AE%E7%9B%B8%E5%90%8C%E6%97%B6num_coincidences%E8%87%AA%E5%A2%9E1"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 两个fp对应位置相同时num_coincidences自增1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E5%99%AA%E9%9F%B3"><span class="toc-number">5.1.3.</span> <span class="toc-text"> 去除噪音</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E6%AF%94%E8%BE%83"><span class="toc-number">5.1.4.</span> <span class="toc-text"> 矩阵比较</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E8%80%85%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="toc-number">5.2.</span> <span class="toc-text"> 作者的建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text"> 总结</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/top.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">l3t1tb3</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">论文复现-Clock around the clock：Time-based device fingerprinting</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T08:06:02.000Z" title="发表于 2020-10-20 16:06:02">2020-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-08T02:06:16.289Z" title="更新于 2020-11-08 10:06:16">2020-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/10/20/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/2020/10/20/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<p><strong>论文介绍</strong>：</p>
+<p><code>《Clock around the clock：Time-based device fingerprinting》</code>是一篇发表在2018年CCS(CCF-A)上的论文。前几天写材料看了这篇论文，觉得思想还挺大道至简的。用师兄的话说就是，可能如果你想到这idea，做都没做就觉得不work然后放弃了的那种…</p>
+<p>作者是Iskander Sanchez-Rola，来自西班牙德乌斯托大学(University of Deusto)。</p>
+<p>作者在文中提出了C语言本地提取指纹的方法以及通过Web远程提取指纹的方法<code>CryptoFP</code>。本地提取指纹的方法比较准确，而通过Web提取指纹的方法不够准确，作者在文中提到：<code>the result of this experiment show that the web imple- mentation of our technique is less precise than the native imple- mentation, due to a more coarse-grain precision offered by the HTML5’s performance.now timer.</code></p>
+<p><strong>复现情况</strong>：</p>
+<p>这里我复现的是文中提到的Web指纹的方法。因为这篇论文的核心算法比较简单，所以复现只花了一天时间。但是效果不是很理想…</p>
+<h2 id="核心思想"><a class="markdownIt-Anchor" href="#核心思想"></a> 核心思想</h2>
+<p>本文的核心思想就是通过测量特定函数在目标设备上的执行时间，用多次测量的运行时间放大目标设备的细微的时钟差异，将运行时间矩阵作为指纹特征矩阵来标识一个设备。</p>
+<p>client – fingerprint --&gt; server</p>
+<h2 id="主要工作"><a class="markdownIt-Anchor" href="#主要工作"></a> 主要工作</h2>
+<h3 id="指纹生成阶段"><a class="markdownIt-Anchor" href="#指纹生成阶段"></a> 指纹生成阶段</h3>
+<ol>
+<li>
+<p>利用crypto的相关函数，比如作者采用的是js的<code>window.crypto.getRandomValues</code> 函数。进行m次实验，每次实验中用n个不同的参数调用getRandomValues函数，得到n个数据，每个数据代表的是执行函数所花费的时间。</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/1.png" alt="" /></p>
+</li>
+<li>
+<p>最后得到一个n×m的矩阵。具体来说，一列表示m次实验中的一次实验，一列共有n行，也就是n个数据。矩阵的第i行表示取出每次实验中的第i个数据。</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/7.png" alt="" /></p>
+</li>
+</ol>
+<p>这里我在代码实现的时候，由于时间是毫秒，我怕精度不够，就乘了个100.</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.12</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.14</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.12</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.13</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.12</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.13</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\left[
+ \begin{matrix}
+   0.1 &amp; 0.12 &amp; 0.14 \\
+   0.1 &amp; 0.12 &amp; 0.13 \\
+   ... &amp; ... &amp; ... \\
+   0.1 &amp; 0.12 &amp; 0.13 
+  \end{matrix}
+  \right] \tag{1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.80204em;vertical-align:-2.15003em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6520099999999998em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.80499em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-3.40599em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.65201em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6500000000000004em;"><span style="top:-4.8100000000000005em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span><span style="top:-1.2099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6500000000000004em;"><span style="top:-4.8100000000000005em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">2</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">2</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span><span style="top:-1.2099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6500000000000004em;"><span style="top:-4.8100000000000005em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">4</span></span></span><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">3</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span><span style="top:-1.2099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6520099999999998em;"><span style="top:-1.6499900000000003em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.80499em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-3.40599em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.65201em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15003em;"><span></span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:4.80204em;vertical-align:-2.15003em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">code for the paper: &quot;Clock around the clock: Time-based device fingerprinting&quot;</span></span><br><span class="line"><span class="comment">@author: l3t1tb3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> config = &#123;</span><br><span class="line">    m: <span class="number">50</span>,  <span class="comment">// row of fp, 50</span></span><br><span class="line">    n: <span class="number">1000</span>,  <span class="comment">// column of fp, 1000</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*   user defined API:</span></span><br><span class="line"><span class="comment">*   two dimentional array to string</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.toStr = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arrLen = <span class="built_in">this</span>.length;</span><br><span class="line">    <span class="keyword">let</span> arrStr = <span class="string">&quot;[&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i&lt;arrLen; i++) &#123;</span><br><span class="line">        arrStr += <span class="string">&quot;[&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>; j&lt;<span class="built_in">this</span>[i].length; j++)&#123;</span><br><span class="line">            arrStr += <span class="string">&quot;&quot;</span> + <span class="built_in">this</span>[i][j] + <span class="string">&quot;,&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        arrStr += <span class="string">&quot;]&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; arrLen - <span class="number">1</span>) &#123;</span><br><span class="line">            arrStr += <span class="string">&quot;,&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    arrStr += <span class="string">&quot;]&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> arrStr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* generate fingerprint for your device</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> gen_fp = <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// init fp</span></span><br><span class="line">    <span class="keyword">let</span> fp = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; config.n; i++) &#123;</span><br><span class="line">        fp[i] = <span class="keyword">new</span> <span class="built_in">Array</span>(config.m);  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// measure m round with n times each </span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; config.m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; config.n; j++) &#123;</span><br><span class="line">            stTime = performance.now();  <span class="comment">// this api is much accurate than Date.now()</span></span><br><span class="line">            measureFunc(j);  <span class="comment">// the crypto function</span></span><br><span class="line">            edTime = performance.now();</span><br><span class="line">            logTime = edTime - stTime;</span><br><span class="line"></span><br><span class="line">            fp[j][i] = logTime*<span class="number">100</span>;  <span class="comment">// the time interval is too small, so we enlarge it by 100 times</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fp = fp.toStr();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fp;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*   call the cryoto function    </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> measureFunc = <span class="function">(<span class="params">j</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> array = <span class="keyword">new</span> <span class="built_in">Uint32Array</span>(j);</span><br><span class="line">    <span class="built_in">window</span>.crypto.getRandomValues(array);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*   post fingerprint to server</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> post_fp = <span class="function">(<span class="params">fp</span>) =&gt;</span> &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url: <span class="string">&#x27;/post/fp&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">        dataType: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">            <span class="string">&quot;fp&quot;</span>: fp</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;[+] successfully: &quot;</span>, data);</span><br><span class="line">        <span class="keyword">if</span>(data[<span class="string">&quot;result&quot;</span>] === <span class="string">&quot;True&quot;</span>)&#123;</span><br><span class="line">            $(<span class="string">&quot;#ip&quot;</span>).text(data[<span class="string">&quot;ip&quot;</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> fpLike = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;data[<span class="string">&quot;fp-like&quot;</span>].length; i++)&#123;</span><br><span class="line">                fpLike += data[<span class="string">&quot;fp-like&quot;</span>][i] + <span class="string">&quot;,&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">            $(<span class="string">&quot;#fp-like&quot;</span>).text(fpLike);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;).fail(<span class="function"><span class="keyword">function</span>(<span class="params">xhr, status</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;[-] failed: &quot;</span>, xhr, status);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="指纹比较阶段"><a class="markdownIt-Anchor" href="#指纹比较阶段"></a> 指纹比较阶段</h3>
+<ol>
+<li>
+<p>首先，定义一个函数GetNumCoincidences。对于指纹fp1，为每一行计算这行的众数，也就是计算出每次实验中第i个数据组成的数组的众数，保存到数组fp1_mode中。</p>
+<p>接下来需要统计fp2中包含了fp1对应行众数的行数量，将结果保存到变量num_coindences。也就是说，对于fp2的每一行，如果在该行中存在数据与fp1_mode[i]相同，则num_coindences+=1，并继续判断下一行</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/2.png" alt="" /></p>
+</li>
+<li>
+<p>最后，分别统计fp2中包含了fp1对应行众数的行数量以及fp1中包含了fp2对应行众数的行数量，将二者的结果求和，并除以行数的两倍(n×2)，与阈值t进行判断。超过阈值时，说明两种情况总的行数量＞ t×总的行数量，则判定为两个指纹是同一个设备。</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/3.png" alt="" /></p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/8.png" alt="" /></p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareFP</span>(<span class="params">object</span>):</span>                                                                                                             </span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Tool for comparing two fingerprints</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, m=<span class="number">50</span>, n=<span class="number">1000</span>, t=<span class="number">0.5</span></span>):</span></span><br><span class="line">        self.m = m</span><br><span class="line">        self.n = n</span><br><span class="line">        self.t = t  <span class="comment"># threshold</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_mode</span>(<span class="params">self, arr</span>):</span></span><br><span class="line">        counter = Counter(arr)</span><br><span class="line">        counter = sorted(counter.items(), key = <span class="keyword">lambda</span> kv:(kv[<span class="number">1</span>], kv[<span class="number">0</span>]), reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> counter[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_num_coincidences</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">        <span class="comment"># generate fp1_mode for each row in fp1: n×m, e.g. n rows and m columns</span></span><br><span class="line">        <span class="comment"># a row means all the ith data in the experiments of m times </span></span><br><span class="line">        fp1_mode = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">            fp1_mode.append(self.get_mode(fp1[i]))</span><br><span class="line"></span><br><span class="line">        num_coincidences = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">            check = <span class="literal">False</span></span><br><span class="line">            curr_mode = fp1_mode[i]</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(self.m):</span><br><span class="line">                <span class="keyword">if</span> check:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> fp2[i][j] == curr_mode:</span><br><span class="line">                    num_coincidences += <span class="number">1</span></span><br><span class="line">                    check = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> num_coincidences</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fp_check</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">        num1 = self.get_num_coincidences(fp1, fp2)</span><br><span class="line">        num2 = self.get_num_coincidences(fp2, fp1)</span><br><span class="line">        num = num1 + num2</span><br><span class="line">        ratio = num / (self.n * <span class="number">2</span>)</span><br><span class="line">        print(<span class="string">&quot;[+] ratio:&quot;</span>, ratio)</span><br><span class="line">        res = ratio &gt;= self.t</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h2 id="实验"><a class="markdownIt-Anchor" href="#实验"></a> 实验</h2>
+<h3 id="实验设置"><a class="markdownIt-Anchor" href="#实验设置"></a> 实验设置</h3>
+<p>用实验室主机，自己的笔记本电脑和手机进行了测试。(没设备呀…</p>
+<table>
+<thead>
+<tr>
+<th>PC</th>
+<th>系统</th>
+<th>浏览器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实验室主机</td>
+<td>win10</td>
+<td>Chrome 86.0.4240.75</td>
+</tr>
+<tr>
+<td>笔记本电脑</td>
+<td>win10</td>
+<td>Chrome 80.0.3987.132</td>
+</tr>
+<tr>
+<td>笔记本电脑</td>
+<td>win10</td>
+<td>Firefox 72.0.2</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>Android 10.0.0.168</td>
+<td>Quark 4.3.3.145</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 实验结果</h3>
+<p>实验效果并不理想。可能是哪里的细节没处理好。</p>
+<ol>
+<li>
+<p>首先，自己的实验室主机和笔记本去访问server，得到的两个指纹的ratio为1。</p>
+<p>1说明不管是fp1 vs fp2还是fp2 vs fp1，当前指纹的每一行都有与另外一个指纹每一行的众数相同的存在。</p>
+<p>看了下从前端post上来的指纹数据，确实有很多数据是一样的。</p>
+</li>
+<li>
+<p>在笔记本的Firefox上得到的测量数据，很多都是0，非0的数据都是100。由于大部分都是0，因此从Firefox上提取出来的指纹矩阵，每一行的众数肯定是0。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; gen_fp(config)</span><br><span class="line"><span class="string">&quot;[[100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0…&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>手机的指纹可以很好地和电脑（台式机、笔记本）区分开。</p>
+</li>
+</ol>
+<h2 id="尝试改进"><a class="markdownIt-Anchor" href="#尝试改进"></a> 尝试改进</h2>
+<h3 id="指纹比较的准确度"><a class="markdownIt-Anchor" href="#指纹比较的准确度"></a> 指纹比较的准确度</h3>
+<h4 id="用众数来判断一行中相同的item数量"><a class="markdownIt-Anchor" href="#用众数来判断一行中相同的item数量"></a> 用众数来判断一行中相同的item数量</h4>
+<p>由于作者在论文中提到的是用fp1每行的众数来判断fp2包含对应众数的行的数量。</p>
+<p>可能fp1中第i行的众数为x，尽管这个x只在fp2第i行出现过1次，但是num_coincidences的数量也会自增1。这种方法的条件过于宽松。</p>
+<p>因此，我第一次尝试是将这部分的思路改成了：用fp1每行的众数来判断fp2每一行里等于该众数的item数量。只要有相同的，num_coincidences就自增1。相应的，在fp_check()函数里，分母就要变成<code>self.n * self.m * 2</code>。因为第一次比的时候，num是在n×m的矩阵中得到的，第二次将fp2作为基准，用fp1去比较的时候，num也是在n×m的矩阵中得到的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareFP</span>(<span class="params">object</span>):</span>     </span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_num_coincidences</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">            <span class="comment"># generate fp1_mode for each row in fp1: n×m, e.g. n rows and m columns</span></span><br><span class="line">            <span class="comment"># a row means all the ith data in the experiments of m times </span></span><br><span class="line">            fp1_mode = []</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">                fp1_mode.append(self.get_mode(fp1[i]))</span><br><span class="line"></span><br><span class="line">            num_coincidences = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">                curr_mode = fp1_mode[i]</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(self.m):</span><br><span class="line">                    <span class="keyword">if</span> fp2[i][j] == curr_mode:</span><br><span class="line">                        num_coincidences += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> num_coincidences</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fp_check</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">            num1 = self.get_num_coincidences(fp1, fp2)</span><br><span class="line">            num2 = self.get_num_coincidences(fp2, fp1)</span><br><span class="line">            num = num1 + num2</span><br><span class="line">            ratio = num / (self.n * self.m * <span class="number">2</span>)</span><br><span class="line">            print(<span class="string">&quot;[+] ratio:&quot;</span>, ratio)</span><br><span class="line">            res = ratio &gt;= self.t</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>第一次用实验室主机访问[0]，第二次笔记本的Chrome访问[1]，第三次用笔记本的Firefox访问[2]，第四次用笔记本的Chrome访问。可以看出，第四次访问的时候，相同设备的结果[1]和[2]明显比不同设备的结果[0]要来的大。可以尝试设置不同的阈值，来保证准确率。</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/4.png" alt="" /></p>
+<h4 id="两个fp对应位置相同时num_coincidences自增1"><a class="markdownIt-Anchor" href="#两个fp对应位置相同时num_coincidences自增1"></a> 两个fp对应位置相同时num_coincidences自增1</h4>
+<p>还有另外一个思路，就是判断两个指纹矩阵对应位置的数值相同时，num_coincidences才自增1。访问的顺序和上面的一样。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareFP</span>(<span class="params">object</span>):</span>     </span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_num_coincidences</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">            <span class="comment"># generate fp1_mode for each row in fp1: n×m, e.g. n rows and m columns</span></span><br><span class="line">            <span class="comment"># a row means all the ith data in the experiments of m times </span></span><br><span class="line">            fp1_mode = []</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">                fp1_mode.append(self.get_mode(fp1[i]))</span><br><span class="line"></span><br><span class="line">            num_coincidences = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(self.m):</span><br><span class="line">                    <span class="keyword">if</span> fp1[i][j] == fp2[i][j]:</span><br><span class="line">                        num_coincidences += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> num_coincidences</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fp_check</span>(<span class="params">self, fp1, fp2</span>):</span></span><br><span class="line">            num1 = self.get_num_coincidences(fp1, fp2)</span><br><span class="line">            num2 = self.get_num_coincidences(fp2, fp1)</span><br><span class="line">            num = num1 + num2</span><br><span class="line">            ratio = num / (self.n * self.m * <span class="number">2</span>)</span><br><span class="line">            print(<span class="string">&quot;[+] ratio:&quot;</span>, ratio)</span><br><span class="line">            res = ratio &gt;= self.t</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>可以看出，条件更为严苛以后，ratio的值更低了。这种方法条件又过于严苛。所以还是上面那只用众数来判断一行中相同的item数量的方法好一些。</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/5.png" alt="" /></p>
+<h4 id="去除噪音"><a class="markdownIt-Anchor" href="#去除噪音"></a> 去除噪音</h4>
+<p>前面实验结果提到，Firefox上的测量结果效果不理想，指纹矩阵中大部分的数据都是0，可能是API在Firefox底层实现和Chrome不同的原因。</p>
+<p>显然，对于其他的设备而言，只要一行中出现了0，那么行数统计结果num_coincidences肯定会自增1。最后很有可能求出来的ratio就超过了0.5，导致算法判定两个指纹属于同一个设备。: (</p>
+<p>尝试修改，在前面<code>用众数来判断一行中相同的item数量</code>的代码基础上修改，将0作为噪音剔除。当这行全是0的时候，仍然返回0。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareFP</span>(<span class="params">object</span>):</span>     </span><br><span class="line">    ...</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get_mode</span>(<span class="params">self, arr</span>):</span></span><br><span class="line">        counter = Counter(arr)</span><br><span class="line">        counter = sorted(counter.items(), key = <span class="keyword">lambda</span> kv:(kv[<span class="number">1</span>], kv[<span class="number">0</span>]), reverse=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> counter[<span class="number">0</span>][<span class="number">0</span>] == <span class="number">0</span> <span class="keyword">and</span> len(counter) &gt;= <span class="number">2</span>:  <span class="comment"># here, 0 is noise, we&#x27;d better remove it.</span></span><br><span class="line">            <span class="keyword">return</span> counter[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> counter[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>访问顺序和上面的实验相同。可以看出，这次能更好地区分开。</p>
+<p>不过问题还是很明显，就是同一个设备的矩阵相似ratio只有0.4几…</p>
+<p><img src="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/6.png" alt="" /></p>
+<h4 id="矩阵比较"><a class="markdownIt-Anchor" href="#矩阵比较"></a> 矩阵比较</h4>
+<p>另外，作者在比较指纹矩阵的时候，用了众数来判断。其实还可以尝试从矩阵的相似度这个角度进行比较。</p>
+<h3 id="作者的建议"><a class="markdownIt-Anchor" href="#作者的建议"></a> 作者的建议</h3>
+<p>作者在文中提到Web的计时API <code>performance.now()</code>不够精确是导致Web指纹准确率不够理想的原因之一。并提出了一些建议：</p>
+<ol>
+<li>不使用HTML自带的计时API，而是其它的技术。比如利用Schwarz等人提出的时钟插值技术</li>
+<li>利用WebAssembly，一个旨在引入一个新的二进制格式的web应用程序。不仅可以提高CryptoFP的web版本的精度，而且可以使用任何函数实现web版本。这个API将允许编译C/C<ins>代码，以及其他的，以及使用公共硬件能力以本地速度执行它。这项技术目前处于早期阶段，但将来可以用来完全实现本地指纹识别方法。（其实可能是允许开发人员自己在web端去调用一些C、C</ins>的函数，然后更精确地去计时。）</li>
+</ol>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p><code>《Clock around the clock：Time-based device fingerprinting》</code>这篇18年的CCS顶会论文有种大道至简的思想。仅通过一个crypto函数的运行时间，就能作为设备的指纹信息。</p>
+<p>在这里我对这篇文章的主要方法做了一个简单的复现，代码在我的仓库中： <a target="_blank" rel="noopener" href="https://github.com/HuangZhenyang/PapersCodeReproducing/tree/master/Clock%20around%20the%20clock%EF%BC%9ATime-based%20device%20fingerprinting">Clock around the clock：Time-based device fingerprinting</a> 。</p>
+<p>可能的原因：</p>
+<ol>
+<li>文中哪里提到的trick我没注意到</li>
+<li>作者由于篇幅的原因没有把trick写到文中</li>
+<li>measureFunc那边调用函数的方式有问题。文中只提到把j作为参数传进去，但是传进去以后做了什么操作并未提及</li>
+<li>我只是为了复现这个算法，实验只用了两三个设备，从结果上来讲可能会出现一些特殊情况</li>
+<li>Web的计时API <code>performance.now()</code>如文中所说的不够精确</li>
+</ol>
+<p>疑惑：</p>
+<ul>
+<li>比较奇怪的是，Firefox里调用measureFunc后的结果几乎都为0，唯一的不为0的数全是100。</li>
+<li>后来看这篇论文的PPT，发现作者PPT上的指纹比较思路和我在改进那边提出的<code>用众数来判断一行中相同的item数量</code>不谋而合。但是PPT里的指纹比较算法和论文里的不一样呀。</li>
+</ul>
+<p>局限：</p>
+<ul>
+<li>measureFunc在执行的过程中不能被操作系统的调度程序中断。因此，太大的函数可能经常被中断，影响测量结果。太小的函数计时又不够准确。</li>
+<li>本文的方法依赖于计时的准确度，也就是测量运行时间的函数API的精确度。</li>
+<li>阈值t=0.5，是作者经过实验得到的。可能只适用于当前的数据集，有点过于理想。</li>
+</ul>
+<p>Q&amp;A(作者在会议上做pre时的提问与回答)：</p>
+<ul>
+<li>
+<p>移动设备是否可行？移动设备的浏览器缺乏相关的API</p>
+</li>
+<li>
+<p>笔记本设备的电池电量会影响实验结果吗？会，笔记本电量低时cpu会降频，指令执行时间会变长</p>
+<blockquote>
+<p>我记得HTML5有个获取电量的API。能否把电量作为参考因素之一，然后结合电量与cpu频率的关系，计算出与执行时间的关系</p>
+</blockquote>
+</li>
+<li>
+<p>Apple设备是否可行？（作者在论文中只提到了Linux, windows）作者未进行实验，但是根据时钟差异的原理，本文方法理论上是可行的</p>
+</li>
+</ul>
+<blockquote>
+<p>另外，对于利用函数执行时间来生成指纹的方法，计算机中的时间测量准确度是一个相当重要的因素。如果能在本质上提高时间测量的准确度，已有的方法肯定可以提高一个档次。</p>
+</blockquote>
+<p>ok，就先到这里吧，我去看论文去了。XD</p>
+</div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/papers/">papers</a></div><div class="post_share"><div class="social-share" data-image="/img/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0-Clock-around-the-clock%EF%BC%9ATime-based-device-fingerprinting/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/10/30/%E5%80%92%E9%80%80%E7%9A%84%E6%9C%AA%E6%9D%A5-%E8%AF%BB%E3%80%8A%E5%85%89%E6%98%8E%E7%8E%8B%E3%80%8B%E6%9C%89%E6%84%9F/"><img class="prev-cover" src="/img/%E5%80%92%E9%80%80%E7%9A%84%E6%9C%AA%E6%9D%A5--%E8%AF%BB%E3%80%8A%E5%85%89%E6%98%8E%E7%8E%8B%E3%80%8B%E6%9C%89%E6%84%9F/cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">倒退的未来--读《光明王》有感</div></div></a></div><div class="next-post pull-right"><a href="/2020/10/18/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CReverse%E8%BF%9B%E9%98%B6%E5%8C%BA-Newbie-calculations-100-writeup/"><img class="next-cover" src="/img/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CReverse%E8%BF%9B%E9%98%B6%E5%8C%BA-Newbie-calculations-100-writeup/cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">攻防世界Reverse进阶区-Newbie_calculations-100-writeup</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By l3t1tb3</div><div class="footer_custom_text">There's nothing here…</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script></div></body></html>
